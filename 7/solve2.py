@@ -5,7 +5,7 @@ def sortkey(hand):
     return res
 
 
-cards = '23456789TJQKA'
+cards = 'J23456789TQKA'
 alpha = 'ABCDEFGHIJKLM'
 
 lines = open("7/input.txt").readlines()
@@ -17,21 +17,28 @@ for line in lines:
     bet=int(bet)
 
 
+    joker=0
     counter={}
     for c in cards:
         for h in hand:
-            if c==h: counter[c] = counter.get(c,0)+1
+            if c==h: 
+                if c=='J': 
+                    joker+=1
+                else:
+                    counter[c] = counter.get(c,0)+1
 
     x = list(counter.values())
     x.sort(reverse=True)
 
-    if x[0]==5: hclass=8
-    if x[0]==4: hclass=7
-    if x[0]==3 and x[1]==2: hclass=6
-    if x[0]==3 and x[1]<2: hclass=5
-    if x[0]==2 and x[1]==2: hclass=4
-    if x[0]==2 and x[1]<2: hclass=3
-    if x[0]==1: hclass=2
+    if len(x)==0: x.append(0)
+
+    if x[0]+joker==5: hclass=8
+    if x[0]+joker==4: hclass=7
+    if x[0]+joker==3 and x[1]==2: hclass=6
+    if x[0]+joker==3 and x[1]<2: hclass=5
+    if x[0]+joker==2 and x[1]==2: hclass=4
+    if x[0]+joker==2 and x[1]<2: hclass=3
+    if x[0]+joker==1: hclass=2
     hand = str(hclass) + hand
 
     hands.append((hand,bet))

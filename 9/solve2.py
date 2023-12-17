@@ -24,7 +24,10 @@ for line in open("9/input.txt").read().splitlines():
     data[y].append(0)
 
     for y in range(y,0,-1):
-        data[y-1].append(data[y-1][-1] + data[y][-1])
+        data[y-1].append(data[y-1][0] - data[y][-1])
+    
+    
+    
     
     total += data[0][-1]
 
